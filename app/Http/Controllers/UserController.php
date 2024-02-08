@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deck;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,11 +23,18 @@ class UserController extends Controller
     }
     public function logout(){
         auth()->logout();
-        return redirect('/');
+        return redirect('/')->with('success','You have logged out successfully');
     }
     public function displayHomepage(){
         if(auth()->check()){
-            return view('Homepage-feed');
+            $decks = Deck::where('user_id',auth()->user()->id)->count();
+            if($decks>0){
+                $decks= Deck::where('user_id',auth()->user()->id)->get();
+            }
+            else{
+                $decks = null;
+            }
+            return view('Homepage-feed',["decks"=>$decks]);
         }
     return view('Homepage');
     }

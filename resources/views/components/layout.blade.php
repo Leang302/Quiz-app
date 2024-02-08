@@ -10,7 +10,17 @@
 <body class="flex flex-col justify-between h-screen">
     {{-- header --}}
     <div class="w-screen bg-sky-500 flex flex-row justify-between items-center py-3 px-[10%] sticky top-0 left-0">
-        <a href="/" class="no-underline text-white text-2xl">QUIZIZ</a>
+        <div class="flex items-center gap-x-4">
+            <a href="/" class="no-underline text-white text-2xl">QUIZIZ</a>
+            @auth
+                <ul class="flex gap-x-3">
+                    <li class="text-lg text-white"><a href=""><span class="icon-[material-symbols--explore-outline] "></span>DISCOVER</a></li>
+                    <li class="text-lg text-white"><a href="/create-deck"><span class="icon-[mingcute--pencil-line]"></span>CREATE</a></li>
+                    <li class="text-lg text-white"><a href=""><span class="icon-[iconamoon--profile-fill]"></span>ME</a></li>
+
+                </ul>
+            @endauth
+        </div>
 
         @auth
         <div class="flex gap-x-3">
@@ -32,6 +42,12 @@
             
         
     </div>
+    @if (session()->has('success'))
+      <center>  <p class="px-3 py-1 bg-green-200 w-[50%]">{{session('success')}}</p></center>
+    @endif
+    @if (session()->has('failure'))
+        <p class="px-3 py-1 bg-red-200">{{session('failure')}}</p>
+    @endif
     {{-- end header --}}
    {{$slot}}
     {{-- footer --}}

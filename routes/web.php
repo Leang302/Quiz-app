@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeckController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,10 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class,'displayHomepage']);
+Route::get('/', [UserController::class,'displayHomepage'])->name('login');
 
 
 //user related route
 Route::post('/log-in',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 Route::post('/log-out',[UserController::class,'logout']);
+
+//deck related
+Route::get('/deck/{deck}',[DeckController::class,'showDeck']);
+Route::get("/create-deck",[DeckController::class,'showCreateForm'])->middleware('auth');
+Route::post("/create-deck",[DeckController::class,'createDeck'])->middleware('auth');
+
+//card related
+Route::get('/add-card/{deck}',[DeckController::class,'showCardForm']);
+Route::post('/add-card/{deck}',[DeckController::class,'addCard']);
