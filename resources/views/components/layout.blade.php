@@ -49,7 +49,7 @@
         <p class="px-3 py-1 bg-red-200">{{session('failure')}}</p>
     @endif
     {{-- end header --}}
-   {{$slot}}
+   <div>{{$slot}}</div>
     {{-- footer --}}
     <div class="w-full shadow-inner flex flex-col items-center py-11">
         <p>© ABC Corporation 2024. All rights reserved.</p>

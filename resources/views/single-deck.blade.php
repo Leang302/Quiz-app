@@ -1,5 +1,5 @@
 <x-layout>
-   <div class="w-screen h-dvh p-5">
+   <div class="w-screen p-5">
         <div class="flex gap-3">
             <h2 class="px-5 py-2 bg-sky-400 w-36 text-center text-white font-bold">{{$deckName}}</h2>
             <a href="/add-card/{{$id}}" class="px-3 py-1 bg-green-400 text-white w-24 text-center">Add card</a>
