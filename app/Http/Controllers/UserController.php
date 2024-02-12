@@ -5,10 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Deck;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
+    public function saveProfile(Request $request){
+        $request->validate([
+            'avatar'=>'required|image|max:4000'
+        ]);
+        $user = auth()->user();
+        $filename = $user->id.'-'. uniqid().'.jpg';
+
+        $imageData=Image::make($request->avatar)->fit(120)->encode('jpg');
+        Storage::put('/public/avatars/'.$filename,$imageData);
+
+        $oldData = $user->avatar;
+
+        $user->avatar= $filename;
+        $user->save();
+        if($oldData!='/logo.png'){
+            Storage::delete(str_replace('/storage','/public',$oldData));
+        }
+        return redirect("/profile/".$user->name);
+
+        }
+    public function showProfileForm(){
+        return view('profile-form');
+    }
+    public function showProfile(User $user){
+        return view('profile',['user'=>$user]);
+    }
     public function login(Request $request){
         $incomingFields = $request->validate([
             'loginname'=>'required',

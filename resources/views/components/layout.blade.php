@@ -16,7 +16,7 @@
                 <ul class="flex gap-x-3">
                     <li class="text-lg text-white"><a href=""><span class="icon-[material-symbols--explore-outline] "></span>DISCOVER</a></li>
                     <li class="text-lg text-white"><a href="/create-deck"><span class="icon-[mingcute--pencil-line]"></span>CREATE</a></li>
-                    <li class="text-lg text-white"><a href=""><span class="icon-[iconamoon--profile-fill]"></span>ME</a></li>
+                    <li class="text-lg text-white"><a href="/profile/{{auth()->user()->name}}"><span class="icon-[iconamoon--profile-fill]"></span>ME</a></li>
 
                 </ul>
             @endauth
@@ -24,7 +24,7 @@
 
         @auth
         <div class="flex gap-x-3">
-            <img src="{{asset('assets/img/logo.png')}}" alt="" class=" rounded-full w-11 h-11">
+            <img src="{{auth()->user()->avatar}}" alt="" class=" rounded-full w-11 h-11">
            <form action="/log-out" method="POST">
             @csrf
             <button class="py-1 px-3 text-white bg-red-600 rounded ">Log Out</button>

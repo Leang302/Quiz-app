@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DeckController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,9 @@ Route::get('/', [UserController::class,'displayHomepage'])->name('login');
 Route::post('/log-in',[UserController::class,'login']);
 Route::post('/register',[UserController::class,'register']);
 Route::post('/log-out',[UserController::class,'logout']);
-
+Route::get('/profile/{User:username}',[UserController::class,'showProfile']);
+Route::get('/edit-profile',[UserController::class,'showProfileForm']);
+Route::post('/edit-profile',[UserController::class,'saveProfile']);
 //deck related
 Route::get('/deck/{deck}',[DeckController::class,'showDeck']);
 Route::get("/create-deck",[DeckController::class,'showCreateForm'])->middleware('auth');
